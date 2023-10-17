@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "cases"
+  site-url: "https://scmopt.github.io/cases"
+  description: "Case studies of mathematical optimization"
+  repo-branch: main
+  repo-url: "https://github.com/scmopt/cases"
