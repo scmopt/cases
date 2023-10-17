@@ -4,3 +4,12 @@ website:
       - index.ipynb
       - 00_core.ipynb
       - agricultural_pricing.ipynb
+      - section: drone_network
+        contents:
+          - drone_network/drone_network.ipynb
+      - section: economic_planning
+        contents:
+          - economic_planning/economic_planning.ipynb
+      - section: efficiency_analysis
+        contents:
+          - efficiency_analysis/efficiency_analysis.ipynb
