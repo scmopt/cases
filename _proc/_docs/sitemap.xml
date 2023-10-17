@@ -1,3 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://scmopt.github.io/cases/index.html</loc>
+    <lastmod>2023-10-17T07:22:55.139Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scmopt.github.io/cases/core.html</loc>
+    <lastmod>2023-10-17T07:22:54.208Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scmopt.github.io/cases/agricultural_pricing.html</loc>
+    <lastmod>2023-10-17T07:22:54.594Z</lastmod>
+  </url>
 </urlset>

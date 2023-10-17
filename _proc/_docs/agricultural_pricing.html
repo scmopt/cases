@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Case studies of mathematical optimization">
 
-<title>cases</title>
+<title>cases - Agricultural Pricing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -97,11 +62,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="cases">
-<meta property="og:description" content="Case studies of mathematical optimization">
+<meta property="og:title" content="cases - Agricultural Pricing">
+<meta property="og:description" content="">
 <meta property="og:site-name" content="cases">
-<meta name="twitter:title" content="cases">
-<meta name="twitter:description" content="Case studies of mathematical optimization">
+<meta name="twitter:title" content="cases - Agricultural Pricing">
+<meta name="twitter:description" content="">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -126,7 +91,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">cases</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./agricultural_pricing.html">Agricultural Pricing</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -140,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">cases</span></a>
   </div>
 </li>
@@ -152,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./agricultural_pricing.html" class="sidebar-item-text sidebar-link">
+  <a href="./agricultural_pricing.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Agricultural Pricing</span></a>
   </div>
 </li>
@@ -166,8 +131,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#install" id="toc-install" class="nav-link active" data-scroll-target="#install">Install</a></li>
-  <li><a href="#how-to-use" id="toc-how-to-use" class="nav-link" data-scroll-target="#how-to-use">How to use</a></li>
+  <li><a href="#problem-description" id="toc-problem-description" class="nav-link active" data-scroll-target="#problem-description">Problem Description</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/scmopt/cases/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -176,14 +140,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">cases</h1>
+<h1 class="title">Agricultural Pricing</h1>
 </div>
 
-<div>
-  <div class="description">
-    Case studies of mathematical optimization
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -197,20 +156,101 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
-<p>This file will become your README and also the index of your documentation.</p>
-<section id="install" class="level2">
-<h2 class="anchored" data-anchor-id="install">Install</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install cases</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="how-to-use" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use">How to use</h2>
-<p>Fill me in please! Don’t forget code examples:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="op">+</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>2</code></pre>
-</div>
-</div>
+<section id="problem-description" class="level2">
+<h2 class="anchored" data-anchor-id="problem-description">Problem Description</h2>
+<p>The government of a country wants to decide what prices should be charged for its dairy products: milk, butter, and cheese. All these products are produced (directly or indirectly) from the country’s raw milk production operations. This raw milk is divided into two main components: fat and dry matter. After subtracting the quantities of fat and dry matter, which are used for making products for export or consumption on the farms, there is a total yearly availability of 600,000 tons of fat and 750,000 tons of dry matter. This is all available for producing milk, butter and two kinds of cheese for domestic consumption. The percentage composition of the products are given in the following table:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Composition</th>
+<th>Fat (%)</th>
+<th>Dry matter (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Milk</td>
+<td>4</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>Butter</td>
+<td>80</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Cheese 1</td>
+<td>35</td>
+<td>30</td>
+</tr>
+<tr class="even">
+<td>Cheese 2</td>
+<td>25</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p>The table below shows last year’s domestic consumption (demand) and prices for the dairy products:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Dairy <br> products</th>
+<th>Milk</th>
+<th>Butter</th>
+<th>Cheese 1</th>
+<th>Cheese 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Demand (1000 tons)</td>
+<td>4.82</td>
+<td>0.32</td>
+<td>0.21</td>
+<td>0.07</td>
+</tr>
+<tr class="even">
+<td>Price (dollars/ton)</td>
+<td>297</td>
+<td>720</td>
+<td>1050</td>
+<td>815</td>
+</tr>
+</tbody>
+</table>
+<p>The elasticities and cross-elasticities are given in the table below:</p>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Milk</th>
+<th>Butter</th>
+<th>Cheese 1</th>
+<th>Cheese 2</th>
+<th>Cheese 1 to <br> Cheese 2</th>
+<th>Cheese 2 to <br> Cheese 1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.4</td>
+<td>2.7</td>
+<td>1.1</td>
+<td>0.4</td>
+<td>0.1</td>
+<td>0.4</td>
+</tr>
+</tbody>
+</table>
+<p>The price index cannot be raised higher than last year.This constraint establishes that the new prices must be such that the total cost of last year’s consumption would not be increased. Last year’s price index is 1.939 (measured in thousand dollars).</p>
+<p>The goal is to determine what prices and demand maximizes the total revenue.</p>
 
 
 </section>

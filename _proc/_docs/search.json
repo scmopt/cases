@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "cases",
+    "section": "",
+    "text": "This file will become your README and also the index of your documentation."
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "cases",
+    "section": "Install",
+    "text": "Install\npip install cases"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "cases",
+    "section": "How to use",
+    "text": "How to use\nFill me in please! Don’t forget code examples:\n\n1+1\n\n2"
+  },
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "core",
+    "section": "",
+    "text": "foo\n\n foo ()"
+  },
+  {
+    "objectID": "agricultural_pricing.html",
+    "href": "agricultural_pricing.html",
+    "title": "Agricultural Pricing",
+    "section": "",
+    "text": "The government of a country wants to decide what prices should be charged for its dairy products: milk, butter, and cheese. All these products are produced (directly or indirectly) from the country’s raw milk production operations. This raw milk is divided into two main components: fat and dry matter. After subtracting the quantities of fat and dry matter, which are used for making products for export or consumption on the farms, there is a total yearly availability of 600,000 tons of fat and 750,000 tons of dry matter. This is all available for producing milk, butter and two kinds of cheese for domestic consumption. The percentage composition of the products are given in the following table:\n\n\n\nComposition\nFat (%)\nDry matter (%)\n\n\n\n\nMilk\n4\n9\n\n\nButter\n80\n2\n\n\nCheese 1\n35\n30\n\n\nCheese 2\n25\n40\n\n\n\nThe table below shows last year’s domestic consumption (demand) and prices for the dairy products:\n\n\n\nDairy  products\nMilk\nButter\nCheese 1\nCheese 2\n\n\n\n\nDemand (1000 tons)\n4.82\n0.32\n0.21\n0.07\n\n\nPrice (dollars/ton)\n297\n720\n1050\n815\n\n\n\nThe elasticities and cross-elasticities are given in the table below:\n\n\n\n\n\n\n\n\n\n\n\nMilk\nButter\nCheese 1\nCheese 2\nCheese 1 to  Cheese 2\nCheese 2 to  Cheese 1\n\n\n\n\n0.4\n2.7\n1.1\n0.4\n0.1\n0.4\n\n\n\nThe price index cannot be raised higher than last year.This constraint establishes that the new prices must be such that the total cost of last year’s consumption would not be increased. Last year’s price index is 1.939 (measured in thousand dollars).\nThe goal is to determine what prices and demand maximizes the total revenue."
+  },
+  {
+    "objectID": "agricultural_pricing.html#problem-description",
+    "href": "agricultural_pricing.html#problem-description",
+    "title": "Agricultural Pricing",
+    "section": "",
+    "text": "The government of a country wants to decide what prices should be charged for its dairy products: milk, butter, and cheese. All these products are produced (directly or indirectly) from the country’s raw milk production operations. This raw milk is divided into two main components: fat and dry matter. After subtracting the quantities of fat and dry matter, which are used for making products for export or consumption on the farms, there is a total yearly availability of 600,000 tons of fat and 750,000 tons of dry matter. This is all available for producing milk, butter and two kinds of cheese for domestic consumption. The percentage composition of the products are given in the following table:\n\n\n\nComposition\nFat (%)\nDry matter (%)\n\n\n\n\nMilk\n4\n9\n\n\nButter\n80\n2\n\n\nCheese 1\n35\n30\n\n\nCheese 2\n25\n40\n\n\n\nThe table below shows last year’s domestic consumption (demand) and prices for the dairy products:\n\n\n\nDairy  products\nMilk\nButter\nCheese 1\nCheese 2\n\n\n\n\nDemand (1000 tons)\n4.82\n0.32\n0.21\n0.07\n\n\nPrice (dollars/ton)\n297\n720\n1050\n815\n\n\n\nThe elasticities and cross-elasticities are given in the table below:\n\n\n\n\n\n\n\n\n\n\n\nMilk\nButter\nCheese 1\nCheese 2\nCheese 1 to  Cheese 2\nCheese 2 to  Cheese 1\n\n\n\n\n0.4\n2.7\n1.1\n0.4\n0.1\n0.4\n\n\n\nThe price index cannot be raised higher than last year.This constraint establishes that the new prices must be such that the total cost of last year’s consumption would not be increased. Last year’s price index is 1.939 (measured in thousand dollars).\nThe goal is to determine what prices and demand maximizes the total revenue."
+  }
+]
