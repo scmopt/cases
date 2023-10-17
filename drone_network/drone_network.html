@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>cases - Drone-Network Design Queueing Model</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="cases - Drone-Network Design Queueing Model">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://scmopt.github.io/cases/drone_network/drone_network_files/figure-html/cell-6-output-2.png">
+<meta property="og:site-name" content="cases">
+<meta property="og:image:height" content="248">
+<meta property="og:image:width" content="391">
+<meta name="twitter:title" content="cases - Drone-Network Design Queueing Model">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://scmopt.github.io/cases/drone_network/drone_network_files/figure-html/cell-6-output-2.png">
+<meta name="twitter:image-height" content="248">
+<meta name="twitter:image-width" content="391">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">cases</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools ms-auto">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../drone_network/drone_network.html">drone_network</a></li><li class="breadcrumb-item"><a href="../drone_network/drone_network.html">Drone-Network Design Queueing Model</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">cases</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">core</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../agricultural_pricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Agricultural Pricing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">drone_network</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../drone_network/drone_network.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Drone-Network Design Queueing Model</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">economic_planning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../economic_planning/economic_planning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Economic Planning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">efficiency_analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../efficiency_analysis/efficiency_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Efficiency Analysis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#input-data-processing-and-visualization" id="toc-input-data-processing-and-visualization" class="nav-link active" data-scroll-target="#input-data-processing-and-visualization">Input Data Processing and Visualization</a></li>
+  <li><a href="#milp-model" id="toc-milp-model" class="nav-link" data-scroll-target="#milp-model">MILP Model</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/scmopt/cases/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Drone-Network Design Queueing Model</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This notebook uses the model and data from the following studies:</p>
+<ul>
+<li>Lejeune M.A., Margot F. 2022. Drone-Network Design for Out-of-Hospital Cardiac Arrests. Working Paper, submitted.</li>
+<li>Custodio.J., Lejeune M.A.&nbsp;2022. Spatiotemporal Data Set of Out-of-Hospital Cardiac Arrests. <em>INFORMS Journal on Computing</em> 34 (1), 4-10.</li>
+</ul>
+<p>The data and its full description can be found here: https://github.com/INFORMSJoC/2020.1022</p>
+<p>The example reads from the VBOHCAR Excel file that contains data for: - out-of-hospital cardiac arrest (OHCA) incidents - potential base stations for drones - pairwise incident/base station (Harversine) distances</p>
+<p>The MILP reformulation is modeled in gurobipy and solved using the Gurobi Optimizer.</p>
+<p>To begin, we import the necessary packages for data intake, modeling, and visualization.</p>
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> collections <span class="im">as</span> mc</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gurobipy <span class="im">as</span> gp</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gurobipy <span class="im">import</span> GRB</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.mixture <span class="im">import</span> GaussianMixture</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="input-data-processing-and-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="input-data-processing-and-visualization">Input Data Processing and Visualization</h3>
+<p>We use pandas to quickly read in the required sheets from Excel. There is a small amount of data prep needed, where some duplicate events need to be removed and text should be cleaned. For reference, an incident location encompasses a street block.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read incident and base station data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ohca_read <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/Gurobi/modeling-examples/master/drone_network_1_2/OHCAs.csv'</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>stations_read <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/Gurobi/modeling-examples/master/drone_network_1_2/BaseStations.csv'</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># read data on indicent-base distance</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>dist_read <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/Gurobi/modeling-examples/master/drone_network_1_2/Base_to_OHCA_distance.csv'</span>, index_col<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The above reads the complete data set, including all OHCAs, base stations, and respective distances. We will subset indicent data to the last month and select seven stations to get an instance that will solve in the notebook.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select a subset of OHCAs so the model can be solved in this notebook (if you have a full license then you can use all incidents)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>start_date <span class="op">=</span> <span class="st">'2019-05-31'</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>end_date <span class="op">=</span> <span class="st">'2019-06-30'</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>n_days <span class="op">=</span>  (datetime.strptime(end_date, <span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">"</span>) <span class="op">-</span> datetime.strptime(start_date, <span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">"</span>)).days</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>ohca_df <span class="op">=</span> ohca_read[(ohca_read.ReceivedTime <span class="op">&gt;=</span> start_date) <span class="op">&amp;</span> (ohca_read.ReceivedTime <span class="op">&lt;=</span> end_date)]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># select a subset of base stations so the model can be solved in this notebook (if you have a full license then you can use all stations)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>stations_df <span class="op">=</span> stations_read.loc[[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">14</span>,<span class="dv">25</span>,<span class="dv">31</span>,<span class="dv">35</span>]]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># some bases are different types (e.g. fire and police), add the type to create a different base name</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>stations_df[<span class="st">'Base'</span>] <span class="op">=</span> stations_df.Street <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> stations_df.Type</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>dist <span class="op">=</span> dist_read.loc[dist_read.index.get_level_values(<span class="dv">1</span>).isin(ohca_df.index)]</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>dist <span class="op">=</span> dist.loc[dist.index.get_level_values(<span class="dv">0</span>).isin(stations_df.index)]</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of days: </span><span class="sc">{</span>n_days<span class="sc">}</span><span class="ss"> </span><span class="ch">\n</span><span class="ss">Number of OHCAs: </span><span class="sc">{</span>ohca_df<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of days: 30 
+Number of OHCAs: 69</code></pre>
+</div>
+</div>
+<p>Next, we create scatterplots to visualize the OHCA locations and stations.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(data <span class="op">=</span> ohca_df, x <span class="op">=</span> <span class="st">'Longitude'</span>, y <span class="op">=</span> <span class="st">'Latitude'</span>, alpha <span class="op">=</span> <span class="fl">.3</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(data <span class="op">=</span> stations_df, x <span class="op">=</span> <span class="st">'Longitude'</span>, y <span class="op">=</span> <span class="st">'Latitude'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, c <span class="op">=</span> <span class="st">'orange'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x26103255190&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="drone_network_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a base / OHCA data frame using the location names</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> dist.join(ohca_df[[<span class="st">'Incident_Location'</span>]])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.join(stations_df[<span class="st">'Base'</span>])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop_duplicates()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.set_index([<span class="st">'Incident_Location'</span>,<span class="st">'Base'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="milp-model" class="level3">
+<h3 class="anchored" data-anchor-id="milp-model">MILP Model</h3>
+<section id="parameter-calculation" class="level4">
+<h4 class="anchored" data-anchor-id="parameter-calculation">Parameter Calculation</h4>
+<p>We assume that drones at each station will have the same speed and mainenace times. The total time it takes a drone to service an OHCA is travel time (to and back from the OHCA location) plus maintenance time.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># limit number of drones</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n_drones <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># assume a 100 km/hr drone speed (about 38 mph) for each drone</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>speed <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># average time to prep, dispatch, clean, perform maintenance etc. a drone is 25 min, converted to hours</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>maintenance <span class="op">=</span> <span class="dv">25</span><span class="op">/</span><span class="dv">60</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate average service time from i to j (converting to meters to kilometers)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>distance <span class="op">=</span> df[<span class="st">'Harversine Distance (meters)'</span>]</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>service_time <span class="op">=</span> maintenance <span class="op">+</span> <span class="dv">2</span><span class="op">*</span><span class="fl">0.001</span><span class="op">*</span>distance<span class="op">/</span>speed</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>service_time <span class="op">=</span> service_time.rename(<span class="st">'service_time'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we use the MLE for the arrival rate of an OHCA to each location <span class="math inline">\(i\)</span> as <span class="math inline">\(\lambda_{i} = N_i/t\)</span>, where <span class="math inline">\(N_i\)</span> is the number of incidents over time <span class="math inline">\(t\)</span>.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>incident_count <span class="op">=</span> ohca_df.Incident_Location.value_counts()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># arrival rate is in hours to match drone speed units</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>arrival_rate <span class="op">=</span> <span class="bu">round</span>(incident_count<span class="op">/</span>(<span class="dv">24</span><span class="op">*</span>n_days),<span class="dv">6</span>) </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>I <span class="op">=</span> df.index.get_level_values(<span class="dv">0</span>).unique()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>J <span class="op">=</span> df.index.get_level_values(<span class="dv">1</span>).unique()</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># make list of each OHCA / base pair</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>base_to_ohca <span class="op">=</span> df.index.tolist()</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># print DAILY arrival rates for each location </span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span><span class="op">*</span>arrival_rate.sort_values(ascending <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>1700 PLEASURE HOUSE RD    0.066672
+1800 DOLINA DR            0.033336
+3600 BONNEY RD            0.033336
+3400 CHAMPLAIN LA         0.033336
+2400 LAUREL COVE DR       0.033336
+                            ...   
+4400 SANIBEL CI           0.033336
+1600 OLD DONATION PKWY    0.033336
+600 FLEET DR              0.033336
+200 ARAGONA BL            0.033336
+1200 GENERAL ST           0.033336
+Name: Incident_Location, Length: 68, dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="base-formualtion-bf-variables-and-constraints" class="level4">
+<h4 class="anchored" data-anchor-id="base-formualtion-bf-variables-and-constraints">Base Formualtion (BF) Variables and Constraints</h4>
+<p>We start to build the MILP model by introducing binary variables <span class="math inline">\(x_{j}\)</span> and <span class="math inline">\(y_{i,j}\)</span> which will be 1 if location <span class="math inline">\(j\)</span> is chosen and services OHCA <span class="math inline">\(i\)</span>. We start with constraints typical to facility location problem. <span class="math display">\[\begin{align}
+&amp;y_{i,j} \le x_j \\
+&amp;\sum_{j \in J} x_j \le p \\
+&amp;\sum_{i \in I_{j}} y_{i,j} = 1 \\
+\end{align}\]</span></p>
+<p>Next, we require each queue meet stability requirements: <span class="math display">\[\begin{align}
+\sum_{i \in I_{j}}\lambda_{i}s_{i,j}y_{i,j} \le 1
+\end{align}\]</span></p>
+<p>Below are these constaints written in gurobipy.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> gp.Model(<span class="st">'drone_network'</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> m.addVars(J, vtype<span class="op">=</span>GRB.BINARY, name<span class="op">=</span><span class="st">'x'</span>)            <span class="co">#selection</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> m.addVars(base_to_ohca, vtype<span class="op">=</span>GRB.BINARY, name<span class="op">=</span><span class="st">'y'</span>) <span class="co">#assignment</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>m.addConstrs((y[(i,j)] <span class="op">&lt;=</span> x[j] <span class="cf">for</span> i,j <span class="kw">in</span> base_to_ohca), name<span class="op">=</span><span class="st">'select'</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>m.addConstr(x.<span class="bu">sum</span>() <span class="op">&lt;=</span> n_drones, name <span class="op">=</span> <span class="st">'drone_limit'</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>m.addConstrs((y.<span class="bu">sum</span>(i,<span class="st">'*'</span>) <span class="op">==</span> <span class="dv">1</span> <span class="cf">for</span> i <span class="kw">in</span> I), name <span class="op">=</span> <span class="st">'ohca'</span>)<span class="op">;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>m.addConstrs(((gp.quicksum(arrival_rate[i]<span class="op">*</span>service_time[i,j]<span class="op">*</span>y[(i,j)] <span class="cf">for</span> i <span class="kw">in</span> I) <span class="op">&lt;=</span> <span class="dv">1</span>) <span class="cf">for</span> j <span class="kw">in</span> J), name<span class="op">=</span><span class="st">'stability'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="reformulated-milp-auxilary-variables-constraints-and-objective-function" class="level4">
+<h4 class="anchored" data-anchor-id="reformulated-milp-auxilary-variables-constraints-and-objective-function">Reformulated MILP: Auxilary Variables, Constraints, and Objective Function</h4>
+<p>The objective for the original formulation is to minimize the average expected response time of the drone network. <span class="math display">\[\begin{align}
+\text{min}\space \frac{1}{\sum_{k \in I}\lambda_k} \sum_{i \in I} \sum_{j \in J_{i}} \left(\frac{\lambda_iy_{i,j} \sum_{k \in I}\lambda_ky_{k,j}s^{2}_{k,j} }{2[1-\sum_{k \in I}\lambda_ky_{k,j}s_{k,j}]} + \frac{d_{i,j}\lambda_iy_{i,j}}{v_j}\right)
+\end{align}\]</span></p>
+<p>The objective function contains factional and bilinear terms but can be reformualted in such a way that these terms are removed and linearized, creating a MILP. To do this, Linking variables need to be introduced to create the reformulation.</p>
+<p><span class="math display">\[\begin{align}
+&amp;V_j = \sum_{i \in I_{j}} \lambda_is^{2}_{i,j}y_{i,j} + \sum_{i \in I_{j}} \lambda_is_{i,j}y_{i,j} \\
+&amp;\nu_{i,j} \ge 0 \\
+&amp;\nu_{i,j} \ge \overline{V}(y_{i,j}-1) + V_j \\
+&amp;\nu_{i,j} \le \overline{V}y_{i,j} \\
+&amp;\nu_{i,j} \le V_j \\
+\end{align}\]</span></p>
+<p>The objective function now is: <span class="math display">\[\begin{align}
+\text{min}\space \sum_{i \in I} \sum_{j \in J_{i}} \left(\frac{\nu_{i,j}}{2} + \frac{d_{i,j}y_{i,j}}{v_j}\right)\frac{\lambda_i}{\sum_{k \in I}\lambda_k}
+\end{align}\]</span></p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Auxilary variables and constraints for R-MILP</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Vbar <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>service_time.<span class="bu">sum</span>()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> m.addVars(J, ub <span class="op">=</span> Vbar, name <span class="op">=</span> <span class="st">'V'</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>nu <span class="op">=</span> m.addVars(base_to_ohca, name<span class="op">=</span><span class="st">'nu'</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>m.addConstrs((V[j] <span class="op">==</span> gp.quicksum(arrival_rate[i]<span class="op">*</span>service_time[i,j]<span class="op">**</span><span class="dv">2</span><span class="op">*</span>y[i,j] <span class="cf">for</span> i <span class="kw">in</span> I) <span class="op">+</span> gp.quicksum(arrival_rate[i]<span class="op">*</span>service_time[i,j]<span class="op">*</span>nu[i,j] <span class="cf">for</span> i <span class="kw">in</span> I) <span class="cf">for</span> j <span class="kw">in</span> J), name <span class="op">=</span> <span class="st">'aux0'</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>m.addConstrs((nu[i,j] <span class="op">&lt;=</span> V[j] <span class="cf">for</span> i, j <span class="kw">in</span> base_to_ohca), name <span class="op">=</span> <span class="st">'aux1'</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>m.addConstrs((nu[i,j] <span class="op">&lt;=</span> Vbar<span class="op">*</span>y[i,j] <span class="cf">for</span> i, j <span class="kw">in</span> base_to_ohca), name <span class="op">=</span> <span class="st">'aux2'</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>m.addConstrs((nu[i,j] <span class="op">&gt;=</span> Vbar<span class="op">*</span>(y[i,j]<span class="op">-</span><span class="dv">1</span>) <span class="op">+</span> V[j] <span class="cf">for</span> i, j <span class="kw">in</span> base_to_ohca), name <span class="op">=</span> <span class="st">'aux3'</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># for ease in setting the objective there is a bit a simplification</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> arrival_rate.<span class="bu">sum</span>()</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>m.setObjective((<span class="dv">1</span><span class="op">/</span>L)<span class="op">*</span>(gp.quicksum(<span class="fl">0.5</span><span class="op">*</span>arrival_rate[i]<span class="op">*</span>nu[(i,j)] <span class="op">+</span> (arrival_rate[i]<span class="op">*</span>distance[i,j]<span class="op">/</span>speed)<span class="op">*</span>y[(i,j)] <span class="cf">for</span> i, j <span class="kw">in</span> base_to_ohca)))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Run the optimization:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>m.optimize()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (win64)
+
+CPU model: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+
+Optimize a model with 1987 rows, 966 columns and 6202 nonzeros
+Model fingerprint: 0xdb44b4e9
+Variable types: 483 continuous, 483 integer (483 binary)
+Coefficient statistics:
+  Matrix range     [2e-04, 6e+02]
+  Objective range  [7e-03, 5e+00]
+  Bounds range     [1e+00, 6e+02]
+  RHS range        [1e+00, 6e+02]
+Presolve removed 7 rows and 0 columns
+Presolve time: 0.06s
+Presolved: 1980 rows, 966 columns, 6202 nonzeros
+Variable types: 483 continuous, 483 integer (483 binary)
+
+Root relaxation: objective 3.732321e+01, 202 iterations, 0.01 seconds (0.01 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0      37.3232102   37.32321  0.00%     -    0s
+
+Explored 1 nodes (202 simplex iterations) in 0.10 seconds (0.09 work units)
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 37.3232 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.732321020846e+01, best bound 3.732321020846e+01, gap 0.0000%</code></pre>
+</div>
+</div>
+</section>
+<section id="visualize-the-solution-network" class="level4">
+<h4 class="anchored" data-anchor-id="visualize-the-solution-network">Visualize the Solution Network</h4>
+<p>Use <code>getAttr</code> in gurobipy to quickly get the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> decision variable values.</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># recover the bases used in the optimal solution</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sol_x <span class="op">=</span> pd.Series(m.getAttr(<span class="st">'X'</span>,x))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>bases_selected <span class="op">=</span> sol_x[sol_x <span class="op">&gt;</span> <span class="fl">0.5</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>bases_selected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>21 MUNICIPAL CTR Fire Station           1.0
+800 VIRGINIA BEACH BLVD Fire Station    1.0
+3769 E. STRATFORD ROAD Rescue Squad     1.0
+5145 RURITAN COURT Rescue Squad         1.0
+dtype: float64</code></pre>
+</div>
+</div>
+<p>Now export the assignment variables and create a dataframe with the coordinates for each final indicent/base pair</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># recover the assignment variable</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sol_y <span class="op">=</span> pd.Series(m.getAttr(<span class="st">'X'</span>,y))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>sol_y.name <span class="op">=</span> <span class="st">'Assignments'</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>sol_y.index.names <span class="op">=</span> [<span class="st">'Incident_Location'</span>,<span class="st">'Base'</span>]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>assignment <span class="op">=</span> sol_y[sol_y <span class="op">&gt;</span> <span class="fl">0.5</span>].to_frame()</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>assignment <span class="op">=</span> pd.merge(assignment.reset_index()[[<span class="st">'Incident_Location'</span>,<span class="st">'Base'</span>]], ohca_df[[<span class="st">'Incident_Location'</span>,<span class="st">'Latitude'</span>,<span class="st">'Longitude'</span>]])</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>assignment.rename(columns <span class="op">=</span> {<span class="st">'Latitude'</span>:<span class="st">'Inc_Latitude'</span>, <span class="st">'Longitude'</span>: <span class="st">'Inc_Longitude'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>assignment <span class="op">=</span> pd.merge(assignment, stations_df[[<span class="st">'Base'</span>,<span class="st">'Latitude'</span>,<span class="st">'Longitude'</span>]])</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>assignment.rename(columns <span class="op">=</span> {<span class="st">'Latitude'</span>:<span class="st">'Base_Latitude'</span>, <span class="st">'Longitude'</span>: <span class="st">'Base_Longitude'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now visualize the solution by finding the coordinates for each assignment pair and creating a plot with the incidents and stations to visualize the final network. The light orange points are stations that were not selected.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>coords <span class="op">=</span> []</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(assignment.shape[<span class="dv">0</span>]):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    coords.append([(assignment.Base_Longitude[r],assignment.Base_Latitude[r]),(assignment.Inc_Longitude[r],assignment.Inc_Latitude[r])])</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the line segments, indicent points, and base station points of the final network</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="op">-</span><span class="fl">76.23</span>, <span class="op">-</span><span class="fl">75.93</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="fl">36.72</span>, <span class="fl">36.93</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>lc <span class="op">=</span> mc.LineCollection(coords, alpha <span class="op">=</span> <span class="fl">.2</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>ax.add_collection(lc)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.scatter(data <span class="op">=</span> ohca_df, x <span class="op">=</span> <span class="st">'Longitude'</span>, y <span class="op">=</span> <span class="st">'Latitude'</span>, alpha <span class="op">=</span> <span class="fl">.3</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.scatter(data <span class="op">=</span> stations_df[stations_df[<span class="st">'Base'</span>].isin(bases_selected.index.tolist())], x <span class="op">=</span> <span class="st">'Longitude'</span>, y <span class="op">=</span> <span class="st">'Latitude'</span>, alpha <span class="op">=</span> <span class="dv">1</span>, c <span class="op">=</span> <span class="st">'orange'</span>) </span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.scatter(data <span class="op">=</span> stations_df[<span class="op">~</span>stations_df[<span class="st">'Base'</span>].isin(bases_selected.index.tolist())], x <span class="op">=</span> <span class="st">'Longitude'</span>, y <span class="op">=</span> <span class="st">'Latitude'</span>, alpha <span class="op">=</span> <span class="fl">0.2</span>, c <span class="op">=</span> <span class="st">'orange'</span>) </span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="drone_network_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m.dispose()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>gp.disposeDefaultEnv()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Freeing default Gurobi environment</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
